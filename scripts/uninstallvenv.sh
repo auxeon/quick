@@ -7,7 +7,6 @@ fi
 echo 'uninstalling venv...';
 cd ../../../../../../../;
 if [[ -d $1 ]]; then
-  echo $? >> "/Users/abhikalpunakal/code/quick/pwd.txt";
   rm -rf $1 -y;
 fi
 echo 'finished uninstalling venv...';
