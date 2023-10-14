@@ -5,7 +5,7 @@ BUCK2 build system starter project
 [INSTRUCTIIONS TO INSTALL BUCK2](
 https://buck2.build/docs/getting_started/#installing-buck2)
 
-## To clone the repo at the record commit hashes
+## To clone the repo at the recorded commit hashes in the repo
 ```
 git clone --recurse-submodules git@github.com:auxeon/quick.git
 ```
