@@ -1,2 +1,3 @@
+#!/bin/bash
 echo "buck2 build //..."
 buck2 build //...
