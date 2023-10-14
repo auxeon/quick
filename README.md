@@ -5,7 +5,17 @@ BUCK2 build system starter project
 [INSTRUCTIIONS TO INSTALL BUCK2](
 https://buck2.build/docs/getting_started/#installing-buck2)
 
-### BUCK2 steps
+## To clone the repo at the record commit hashes
+```
+git clone --recurse-submodules git@github.com:auxeon/quick.git
+```
+
+## To clone the repo and update submodules
+```
+git clone --recurse-submodules --remote-submodules git@github.com:auxeon/quick.git
+```
+
+## BUCK2 steps
 To create a new BUCK2 project use
 ```
 buck2 init --git
