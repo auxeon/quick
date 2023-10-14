@@ -1,0 +1,44 @@
+cxx_library(
+    name = "gtest",
+    srcs = glob(
+        include = [
+            "googletest/googletest/src/*.cc",
+            "googletest/googlemock/src/*.cc",
+        ],
+        exclude = [
+            "googletest/googletest/src/gtest-all.cc",
+            "googletest/googletest/src/gtest_main.cc",
+            "googletest/googlemock/src/gmock-all.cc",
+            "googletest/googlemock/src/gmock_main.cc",
+        ],
+    ),
+    exported_headers = glob([
+        "googletest/googletest/include/gtest/*.h",
+        "googletest/googlemock/include/gmock/*.h",
+    ]),
+    compiler_flags = select({
+        "config//os:macos": [],
+        "config//os:linux": [],
+        "config//os:windows": [],
+        "DEFAULT": ["-pthread"],
+    }),
+    public_include_directories = [
+        "googletest/googlemock",
+        "googletest/googlemock/include",
+        "googletest/googletest",
+        "googletest/googletest/include",
+    ],
+    linker_flags = select({
+        "config//os:windows": [],
+        "config//os:macos": [
+            "-lm",
+            "-lpthread",
+        ],
+        "config//os:linux": [
+            "-lm",
+            "-lpthread",
+        ],
+        "DEFAULT": ["-pthread"],
+    }),
+    visibility = ["PUBLIC"],
+)
