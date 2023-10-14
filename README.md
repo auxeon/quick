@@ -59,6 +59,8 @@ buck2 test //:py_test
 ## Tests
 To run all tests in the project
 ```
+buck2 clean
+buck2 build //:py_install_venv
 buck2 test //...
 ```
 
