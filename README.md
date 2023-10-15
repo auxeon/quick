@@ -1,3 +1,5 @@
+![BUCK2 Builds And Tests](https://github.com/auxeon/quick/actions/workflows/main.yml/badge.svg)
+
 # Quick
 
 BUCK2 build system starter project
