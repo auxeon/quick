@@ -1,6 +1,10 @@
 name: QUICK BUCK2 BUILD AND TEST
 on: [push, pull_request, workflow_dispatch]
 
+env:
+  CPP_TIMEOUT_SEC: 5
+  PY_TIMEOUT_SEC: 5
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -9,7 +13,12 @@ jobs:
         with:
           submodules: 'true'
       - uses: dtolnay/install-buck2@latest
+      - run: buck2 clean
+      - run: buck2 build //:py_install_venv
+      - run: source venv/bin/activate
       - run: buck2 build //...
+      - run: buck2 build //:py_uninstall_venv
+      - run: deactivate
       
   test:
     runs-on: ubuntu-latest
@@ -20,6 +29,23 @@ jobs:
       - uses: dtolnay/install-buck2@latest
       - run: buck2 clean
       - run: buck2 build //:py_install_venv
+      - run: source venv/bin/activate
       - run: buck2 test //...
       - run: buck2 build //:py_uninstall_venv
+      - run: deactivate
+
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.0
+        with:
+          submodules: 'true'
+      - uses: dtolnay/install-buck2@latest
+      - run: buck2 build //:py_install_venv
+      - run: source venv/bin/activate
+      - run: ./scripts/runcpp.sh & sleep $CPP_TIMEOUT_SEC; kill -INT %+
+      - run: ./scripts/runpy.sh & sleep $PY_TIMEOUT_SEC; kill -INT %+
+      - run: buck2 build //:py_uninstall_venv
+      - run: deactivate
+
       
