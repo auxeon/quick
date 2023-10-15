@@ -12,7 +12,7 @@ system_cxx_toolchain(
 system_python_toolchain(
     name='python',
     visibility=["PUBLIC"],
-    interpreter = './venv/bin/python3.11'
+    interpreter = './venv/bin/python3'
 )
 
 system_python_bootstrap_toolchain(
