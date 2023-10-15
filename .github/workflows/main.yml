@@ -22,9 +22,6 @@ jobs:
       - run: |
           buck2 clean
           buck2 build //:py_install_venv
-          pwd
-          ls -lah
-          ls -lah venv
           buck2 test //...
           buck2 build //:py_uninstall_venv
       
