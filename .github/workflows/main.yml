@@ -6,15 +6,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.0
-      - run: buck build //...
+      - uses: dtolnay/install-buck2@latest
+      - run: buck2 build //...
       
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.0
       - uses: dtolnay/install-buck2@latest
-      - run: buck clean
-      - run: buck //:py_install_venv
-      - run: buck test //...
-      - run: buck //:py_uninstall_venv
+      - run: buck2 clean
+      - run: buck2 //:py_install_venv
+      - run: buck2 test //...
+      - run: buck2 //:py_uninstall_venv
       
