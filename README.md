@@ -1,4 +1,4 @@
-![BUCK2 Builds And Tests](https://github.com/auxeon/quick/actions/workflows/main.yml/badge.svg)
+![BUCK2 Builds Tests](https://github.com/auxeon/quick/actions/workflows/main.yml/badge.svg)
 
 # Quick
 
