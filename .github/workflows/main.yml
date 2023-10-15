@@ -1,4 +1,4 @@
-name: run buck builds and tests
+name: BUCK2 quick build and test all
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
