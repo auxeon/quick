@@ -1,3 +1,6 @@
+"""
+example tests from https://docs.python.org/3/library/unittest.html#basic-example
+"""
 import unittest
 
 class TestStringMethods(unittest.TestCase):
