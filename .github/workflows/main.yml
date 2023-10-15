@@ -1,0 +1,20 @@
+name: run buck tests
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.0
+      - run: buck2 build //...
+      
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4.1.0
+      - uses: dtolnay/install-buck2@latest
+      - run: buck2 clean
+      - run: buck2 //:py_install_venv
+      - run: buck2 test //...
+      - run: buck2 //:py_uninstall_venv
+      
