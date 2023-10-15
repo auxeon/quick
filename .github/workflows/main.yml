@@ -6,15 +6,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.0
+        with:
+          submodules: 'true'
       - uses: dtolnay/install-buck2@latest
-      - run: pwd; ls -lah
-      - run: ls -lah ./prelude
       - run: buck2 build //...
       
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.0
+        with:
+          submodules: 'true'
       - uses: dtolnay/install-buck2@latest
       - run: buck2 clean
       - run: buck2 //:py_install_venv
