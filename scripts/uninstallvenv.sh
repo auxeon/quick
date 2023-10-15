@@ -4,6 +4,8 @@ if [[ $# -ne 1 ]]; then
   echo "usage: $0 [VENV_PATH]";
   exit 1;
 fi
+echo 'deactivating...';
+deactivate
 echo 'uninstalling venv...';
 cd ../../../../../../../;
 if [[ -d $1 ]]; then
