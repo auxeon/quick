@@ -9,8 +9,7 @@ jobs:
         with:
           submodules: 'true'
       - uses: dtolnay/install-buck2@latest
-      - run: |
-          buck2 build //...
+      - run: buck2 build //...
       
   test:
     runs-on: ubuntu-latest
@@ -19,9 +18,8 @@ jobs:
         with:
           submodules: 'true'
       - uses: dtolnay/install-buck2@latest
-      - run: |
-          buck2 clean
-          buck2 build //:py_install_venv
-          buck2 test //...
-          buck2 build //:py_uninstall_venv
+      - run: buck2 clean
+      - run: buck2 build //:py_install_venv
+      - run: buck2 test //...
+      - run: buck2 build //:py_uninstall_venv
       
