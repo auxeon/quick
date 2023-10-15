@@ -8,6 +8,7 @@ jobs:
       - uses: actions/checkout@v4.1.0
       - uses: dtolnay/install-buck2@latest
       - run: pwd; ls -lah
+      - run: ls -lah ./prelude
       - run: buck2 build //...
       
   test:
