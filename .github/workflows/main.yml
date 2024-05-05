@@ -15,13 +15,12 @@ jobs:
         with:
           submodules: 'true'
       - run: sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev libwayland-dev libxkbcommon-dev
-      - run: python --version
-      - run: python3 --version
-      - name: install Buck2
+      - name: install buck2
         uses: dtolnay/install-buck2@v1 
       - run: buck2 clean
-      - run: buck2 build //:py_install_venv
-      - run: source venv/bin/activate
-      - run: buck2 build //...
-      - run: deactivate
-      - run: buck2 build //:py_uninstall_venv
+      - run: |
+            buck2 build //:py_install_venv
+            source venv/bin/activate
+            buck2 build //...
+            deactivate
+            buck2 build //:py_uninstall_venv
