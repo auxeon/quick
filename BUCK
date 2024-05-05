@@ -10,8 +10,20 @@ PYTHON_EXE = "python3"
 cxx_binary(
     name="app",
     compatible_with=COMPATIBLE_WITH,
-    link_style="static",
-    srcs=["app.cpp"],
+    srcs=[
+      "app.cpp",
+    ],
+    include_directories=[
+      ".",
+    ],
+    compiler_flags=[
+      "-g",
+    ],
+    linker_flags = [],
+    deps=[
+      "//deps:glad",
+      "//deps:glfw",
+    ],
 )
 
 cxx_test(
