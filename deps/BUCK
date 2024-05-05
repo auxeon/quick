@@ -1,3 +1,119 @@
+COMPATIBLE_WITH_BASE = [
+  "ovr_config//os:macos",
+  "ovr_config//os:linux",
+  "ovr_config//os:windows",
+]
+
+cxx_library(
+  name = "glfw",
+  srcs = [
+    "glfw/src/context.c",
+    "glfw/src/egl_context.c",
+    "glfw/src/init.c",
+    "glfw/src/input.c",
+    "glfw/src/monitor.c",
+    "glfw/src/osmesa_context.c",
+    "glfw/src/vulkan.c",
+    "glfw/src/window.c",
+    "glfw/src/platform.c",
+    "glfw/src/posix_module.c",
+    "glfw/src/posix_poll.c",
+    "glfw/src/null_init.c",
+    "glfw/src/null_joystick.c",
+    "glfw/src/null_monitor.c",
+    "glfw/src/null_window.c",
+    ] + select({
+    "ovr_config//os:linux": [
+      "glfw/src/glx_context.c",
+      "glfw/src/linux_joystick.c",
+      "glfw/src/posix_thread.c",
+      "glfw/src/posix_time.c",
+      "glfw/src/x11_init.c",
+      "glfw/src/x11_monitor.c",
+      "glfw/src/x11_window.c",
+      "glfw/src/xkb_unicode.c",
+    ],
+    "ovr_config//os:macos": [
+      "glfw/src/cocoa_init.m",
+      "glfw/src/cocoa_joystick.m",
+      "glfw/src/cocoa_monitor.m",
+      "glfw/src/cocoa_time.c",
+      "glfw/src/cocoa_window.m",
+      "glfw/src/nsgl_context.m",
+      "glfw/src/posix_thread.c",
+      
+    ],
+    "ovr_config//os:windows": [
+      "glfw/src/wgl_context.c",
+      "glfw/src/win32_init.c",
+      "glfw/src/win32_joystick.c",
+      "glfw/src/win32_monitor.c",
+      "glfw/src/win32_thread.c",
+      "glfw/src/win32_time.c",
+      "glfw/src/win32_window.c", 
+    ],
+  }),
+  compatible_with = COMPATIBLE_WITH_BASE,
+  link_style="static",
+  compiler_flags = [],
+  include_directories = ["."],
+  preprocessor_flags = select({
+    "DEFAULT": [],
+    "ovr_config//os:macos":[
+      "-D_GLFW_COCOA",
+      "-D_GLFW_USE_CHDIR",
+      "-D_GLFW_USE_MENUBAR",
+      "-D_GLFW_USE_RETINA",
+    ],
+    "ovr_config//os:linux":[
+      "-D_GLFW_X11",
+    ],
+    "ovr_config//os:windows":[
+      "-D_GLFW_WIN32",
+      "-D_GLFW_EXPOSE_NATIVE_WIN32",
+    ],
+  }),
+  public_include_directories = [
+      "glfw/include",
+    ],
+    linker_flags = select({
+    "DEFAULT": [],
+    "ovr_config//os:macos": [
+      "-Wl,-framework,Cocoa",
+      "-Wl,-framework,CoreFoundation",
+      "-Wl,-framework,CoreVideo",
+      "-Wl,-framework,IOKit",
+      "-Wl,-framework,OpenGL",
+    ],
+  }),
+  exported_headers = glob(["glfw/include/**/*.h"]),
+  raw_headers = glob(["glfw/src/**/*.h"]),
+  visibility = ["PUBLIC"],
+  deps = [],
+)
+
+cxx_library(
+  name = "glad",
+  srcs = [
+    "glad/src/glad.c",
+  ],
+  raw_headers = glob([
+    "glad/include/glad/glad.h",
+    "glad/include/KHR/khrplatform.h",
+  ]),
+  exported_headers = glob([
+    "glad/include/glad/glad.h"
+  ]),
+  include_directories = ["."],
+  public_include_directories = [
+    "glad/include",
+  ],
+  compatible_with = COMPATIBLE_WITH_BASE,
+  link_style="static",
+  visibility = ["PUBLIC"],
+  deps = [],
+)
+
 cxx_library(
     name = "gtest",
     srcs = glob(
@@ -12,6 +128,7 @@ cxx_library(
             "googletest/googlemock/src/gmock_main.cc",
         ],
     ),
+    compatible_with = COMPATIBLE_WITH_BASE,
     exported_headers = glob([
         "googletest/googletest/include/gtest/*.h",
         "googletest/googlemock/include/gmock/*.h",
@@ -28,6 +145,7 @@ cxx_library(
         "googletest/googletest",
         "googletest/googletest/include",
     ],
+    link_style = "static",
     linker_flags = select({
         "config//os:windows": [],
         "config//os:macos": [
