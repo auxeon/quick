@@ -76,7 +76,7 @@ cxx_library(
   public_include_directories = [
       "glfw/include",
     ],
-    linker_flags = select({
+  exported_linker_flags = select({
     "DEFAULT": [],
     "ovr_config//os:macos": [
       "-Wl,-framework,Cocoa",
@@ -84,6 +84,9 @@ cxx_library(
       "-Wl,-framework,CoreVideo",
       "-Wl,-framework,IOKit",
       "-Wl,-framework,OpenGL",
+      "-Wl,-framework,Metal",
+      "-Wl,-framework,Carbon",
+      "-Wl,-framework,QuartzCore",
     ],
   }),
   exported_headers = glob(["glfw/include/**/*.h"]),

@@ -19,7 +19,7 @@ cxx_binary(
     compiler_flags=[
       "-g",
     ],
-    linker_flags = [],
+    link_style = "static",
     deps=[
       "//deps:glad",
       "//deps:glfw",
