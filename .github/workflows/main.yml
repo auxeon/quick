@@ -14,9 +14,9 @@ jobs:
       - uses: actions/checkout@v4.1.0
         with:
           submodules: 'true'
-      - name: Setup Buck2
-        uses: zadlg/buck2-github-composite-action@v3 
       - run: sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev libwayland-dev libxkbcommon-dev
+      - name: install Buck2
+        uses: dtolnay/install-buck2@v1 
       - run: buck2 clean
       - run: buck2 build //:py_install_venv
       - run: source venv/bin/activate
