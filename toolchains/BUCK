@@ -5,9 +5,14 @@ load("@prelude//toolchains:remote_test_execution.bzl", "remote_test_execution_to
 
 system_cxx_toolchain(
     name = "cxx",
-    cxx_flags = [
-      "-std=c++20",
-    ],
+    cxx_flags = select({
+      "config//os:macos": [
+        "-std=c++20",
+      ],
+      "config//os:linux": [],
+      "config//os:windows": [],
+      "DEFAULT": [],
+    }),
     visibility = ["PUBLIC"],
 )
 
