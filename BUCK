@@ -11,7 +11,7 @@ cxx_binary(
     name="app",
     compatible_with=COMPATIBLE_WITH,
     srcs=[
-      "app.cpp",
+      "cxx/app.cpp",
     ],
     include_directories=[
       ".",
@@ -30,7 +30,7 @@ cxx_test(
     name="test",
     compatible_with=COMPATIBLE_WITH,
     link_style="static",
-    srcs=["test.cpp"],
+    srcs=["cxx/test.cpp"],
     deps=["//deps:gtest"],
 )
 
@@ -38,13 +38,13 @@ cxx_test(
 python_library(
     name="py_app_library",
     compatible_with=COMPATIBLE_WITH,
-    srcs=["app.py"],
+    srcs=["py/app.py"],
 )
 
 python_binary(
     name="py_app",
     compatible_with=COMPATIBLE_WITH,
-    main_module="app",
+    main_module="py.app",
     deps=[
         ":py_app_library",
         ":py_install_venv",
@@ -55,7 +55,7 @@ python_test(
     name="py_test",
     compatible_with=COMPATIBLE_WITH,
     srcs=[
-        "test.py",
+        "py/test.py",
     ],
     deps=[
         "//deps:gtest",
