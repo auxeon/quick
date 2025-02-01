@@ -2,6 +2,7 @@ load("@prelude//toolchains:cxx.bzl", "system_cxx_toolchain")
 load("@prelude//toolchains:genrule.bzl", "system_genrule_toolchain")
 load("@prelude//toolchains:python.bzl", "system_python_bootstrap_toolchain", "system_python_toolchain")
 load("@prelude//toolchains:remote_test_execution.bzl", "remote_test_execution_toolchain")
+load("@prelude//tests:test_toolchain.bzl", "noop_test_toolchain")
 
 system_cxx_toolchain(
     name = "cxx",
@@ -34,4 +35,9 @@ system_python_bootstrap_toolchain(
 remote_test_execution_toolchain(
     name = "remote_test_execution",
     visibility = ["PUBLIC"],
+)
+
+noop_test_toolchain(
+  name = "test",
+  visibility = ["PUBLIC"],
 )
