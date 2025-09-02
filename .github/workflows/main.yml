@@ -14,7 +14,7 @@ jobs:
       - uses: actions/checkout@v4.1.0
         with:
           submodules: 'true'
-      - run: sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev libwayland-dev libxkbcommon-dev
+      - run: sudo apt install libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libxext-dev libwayland-dev libxkbcommon-dev libgl1-mesa-dev xorg-dev
       - name: install buck2
         uses: dtolnay/install-buck2@v1 
       - run: buck2 clean
