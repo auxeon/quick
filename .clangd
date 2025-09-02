@@ -1,14 +1,26 @@
+# with .clangd the issue is clangd checks recursive up
+# till it finds one of .clangd compile_commands.txt compile_commands.json
+# However if it finds only .clangd when the lsp starts up it changes cwd to the dir of file being processed
+# instead of sticking to just the project root dir where .clangd file was found
+# this breaks all relative paths
+# 
+# If it instead also finds a compile_flags.txt then the cwd is anchored to project root
+# The hack to fix this is to place an empty compile_flags.txt file this comment suggests
+# https://github.com/clangd/clangd/issues/1038#issuecomment-2614169354
+
 If:
-  PathMatch: 
-    - *.cpp
-    - *.c
-    - *.h
-    - *.hpp
+ PathMatch: 
+   - "*.cpp"
+   - "*.c"
+   - "*.h"
+   - "*.hpp"
 
 CompileFlags:
   Add:
-    - -I./
-    - -I./deps/glad/include
-    - -I./deps/glfw/include
-    - -I./deps/googletest/googletest/include
-    - -I./deps/googletest/googlemock/include
+    - "-Ideps/glad/include"
+    - "-Ideps/glfw/include"
+    - "-Ideps/googletest/googletest/include"
+    - "-Ideps/googletest/googlemock/include"
+    - "-Ideps/miniaudio"
+    - "-std=c++20"
+
