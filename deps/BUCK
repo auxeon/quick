@@ -144,6 +144,9 @@ cxx_library(
       "-Wl,-framework,Carbon",
       "-Wl,-framework,QuartzCore",
     ],
+    "ovr_config//os:linux": [
+      "-lGL",
+    ],
     "ovr_config//os:windows": [
       "/DEFAULTLIB:opengl32.lib",
       "/DEFAULTLIB:gdi32.lib",
