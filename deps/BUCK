@@ -105,7 +105,8 @@ cxx_library(
       "glfw/src/win32_monitor.c",
       "glfw/src/win32_thread.c",
       "glfw/src/win32_time.c",
-      "glfw/src/win32_window.c", 
+      "glfw/src/win32_window.c",
+      "glfw/src/win32_module.c",
     ],
   }),
   compatible_with = COMPATIBLE_WITH_BASE,
@@ -143,6 +144,12 @@ cxx_library(
       "-Wl,-framework,Carbon",
       "-Wl,-framework,QuartzCore",
     ],
+    "ovr_config//os:windows": [
+      "/DEFAULTLIB:opengl32.lib",
+      "/DEFAULTLIB:gdi32.lib",
+      "/DEFAULTLIB:user32.lib",
+      "/DEFAULTLIB:shell32.lib",
+    ]
   }),
   exported_headers = glob(["glfw/include/**/*.h"]),
   raw_headers = glob(["glfw/src/**/*.h"]),
