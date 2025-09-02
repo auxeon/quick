@@ -34,6 +34,7 @@ cxx_test(
     deps=[
       "//deps:gtest",
       "//deps:miniaudio",
+      "//deps:glfw",
     ],
     resources = glob(["resources/*"]),
 )

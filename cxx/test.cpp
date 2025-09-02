@@ -1,6 +1,6 @@
-#include <cstddef>
 #include <gtest/gtest.h>
 #include <miniaudio.h>
+#include <GLFW/glfw3.h>
 
 TEST(test, 0) {
   ASSERT_EQ(true, true);
@@ -23,6 +23,28 @@ TEST(test_miniaudio, 0)
   getchar();
   ma_engine_uninit(&engine);
 }
+
+TEST(test_glfw, 0)
+{
+  int status = 0;
+  status = glfwInit();
+  ASSERT_NE(status, 0);
+  GLFWwindow *win = glfwCreateWindow(600, 600, "Hello World", NULL, NULL);
+  if (!win)
+    glfwTerminate();
+  ASSERT_NE(win, nullptr);
+  
+  glfwMakeContextCurrent(win);
+  while (!glfwWindowShouldClose(win))
+  {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glfwSwapBuffers(win);
+    glfwPollEvents();
+  }
+  glfwTerminate();
+}
+
+
 
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
