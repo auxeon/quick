@@ -31,7 +31,11 @@ cxx_test(
     compatible_with=COMPATIBLE_WITH,
     link_style="static",
     srcs=["cxx/test.cpp"],
-    deps=["//deps:gtest"],
+    deps=[
+      "//deps:gtest",
+      "//deps:miniaudio",
+    ],
+    resources = glob(["resources/*"]),
 )
 
 # python

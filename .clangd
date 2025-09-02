@@ -22,5 +22,6 @@ CompileFlags:
     - "-Ideps/googletest/googletest/include"
     - "-Ideps/googletest/googlemock/include"
     - "-Ideps/miniaudio"
+    - "-Ideps/"
     - "-std=c++20"
 

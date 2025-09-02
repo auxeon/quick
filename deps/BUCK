@@ -4,6 +4,61 @@ COMPATIBLE_WITH_BASE = [
   "ovr_config//os:windows",
 ]
 
+
+# from https://github.com/mackron/miniaudio
+# Just compile miniaudio.c like any other source file and include miniaudio.header
+# a normal header. There's no need to install any dependencies.
+# On Windows and macOS there's no need to link to anything.
+# On Linux and BSD just link to -lpthread and -lm. 
+# On iOS you need to compile as Objective-C. Link to -ldl if you get errors about dlopen(), etc.
+# If you get errors about undefined references to __sync_val_compare_and_swap_8, __atomic_load_8, etc. you need to link with -latomic.
+
+cxx_library(
+  name = "miniaudio",
+  srcs = [
+    "miniaudio/miniaudio.c",
+  ],
+  compatible_with = COMPATIBLE_WITH_BASE,
+  link_style="static",
+  compiler_flags = [],
+  include_directories = [
+    ".",
+  ],
+  preprocessor_flags = [],
+  raw_headers = [
+    "miniaudio/miniaudio.h",
+  ],
+  exported_headers = [
+    "miniaudio/miniaudio.h",
+  ],
+  public_include_directories = [
+    ".",
+    "miniaudio/"
+  ],
+  exported_linker_flags = select({
+    "DEFAULT": [],
+    "ovr_config//os:linux": [
+      "-lm",
+      "-lpthread",
+      # uncomment if errors about dlopen 
+      # "-ldl"
+    ],
+  }),
+  visibility = ["PUBLIC"],
+  deps = [],
+)
+
+
+# instructions to build from source for glfw are essentially non-existent
+# i've created a working static library splicing information from multiple sources
+# if you do update the git submodule version and run into errors
+# these are helpful links to look at to figure out build issues
+
+# from https://github.com/glfw/glfw
+# from https://www.glfw.org/docs/latest/compile.html
+# from https://github.com/glfw/glfw/blob/master/src/platform.h
+# from https://github.com/glfw/glfw/blob/master/src/CMakeLists.txt
+
 cxx_library(
   name = "glfw",
   srcs = [
@@ -95,6 +150,8 @@ cxx_library(
   deps = [],
 )
 
+# pretty straightforward drag and drop library
+# from https://learnopengl.com/Getting-started/Creating-a-window
 cxx_library(
   name = "glad",
   srcs = [
@@ -116,6 +173,11 @@ cxx_library(
   visibility = ["PUBLIC"],
   deps = [],
 )
+
+# straight forward drag and drop library 
+# from https://github.com/google/googletest
+# includig googletest also gives us minimal gflags functionality
+# GTEST_DEFINE_*_ where * is among (bool, int32, string)
 
 cxx_library(
     name = "gtest",
