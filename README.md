@@ -4,7 +4,7 @@
 
 BUCK2 build system starter project
 
-[INSTRUCTIIONS TO INSTALL BUCK2](
+[INSTRUCTIONS TO INSTALL BUCK2](
 https://buck2.build/docs/getting_started/#installing-buck2)
 
 ## To clone the repo with submodules at the recorded commit hashes in the repo
